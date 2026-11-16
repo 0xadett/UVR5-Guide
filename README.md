@@ -1,6 +1,5 @@
 # UVR5 Guide
-
-Minimal reference and quick-setup lookup for **Ultimate Vocal Remover v5.6**.
+Reference and quick-setup lookup for **Ultimate Vocal Remover v5.6**.
 
 - **Web Guide:** [0xadett.github.io/UVR5-Guide](https://0xadett.github.io/UVR5-Guide/)
 - **PDF Handbook:** [Ultimate_Vocal_Remover_5_Guide.pdf](./Ultimate_Vocal_Remover_5_Guide.pdf)
