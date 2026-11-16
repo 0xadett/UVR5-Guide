@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate Vocal Remover 5 (UVR5) — Interactive Guide &amp; PDF Handbook</title>
+  <meta name="description" content="A comprehensive, easy-to-use interactive guide and downloadable PDF handbook for Ultimate Vocal Remover v5.6 (UVR5), covering MDX-Net, Demucs v4, VR Architecture, Ensemble Mode, and DAW stem workflows." />
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 14mm 14mm 15mm 14mm;
+    }
+
+    :root {
+      --bg-page: #f1f5f9;
+      --bg-card: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --primary-soft: #eff6ff;
+      --accent-teal: #0d9488;
+      --teal-soft: #f0fdfa;
+      --accent-amber: #d97706;
+      --amber-soft: #fffbeb;
+      --accent-purple: #7c3aed;
+      --purple-soft: #f5f3ff;
+      --accent-emerald: #059669;
+      --emerald-soft: #ecfdf5;
+      --slate-soft: #f8fafc;
+      --code-bg: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-page);
+      font-size: 10pt;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page-wrap {
+      max-width: 980px;
+      margin: 24px auto 40px auto;
+      background: var(--bg-card);
+      padding: 26px 32px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
+    }
+
+    /* Web Top Action Bar */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 10.5pt;
+      color: #ffffff;
+    }
+
+    .topbar-badge {
+      background: #1d4ed8;
+      color: #dbeafe;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 8.8pt;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 7px;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-emerald {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Interactive Recommender Tool (Web Only) */
+    .recommender {
+      background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+      border: 1.5px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 14px 0 18px 0;
+    }
+
+    .recommender-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .recommender-head h2 {
+      margin: 0;
+      border: none;
+      padding: 0;
+      font-size: 12.2pt;
+      color: #0f172a;
+    }
+
+    .recommender-tag {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .rec-controls {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .rec-field label {
+      display: block;
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+
+    .rec-field select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 7px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 9.3pt;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .rec-result {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #2563eb;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .rec-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 7px 9px;
+    }
+
+    .rec-item-lbl {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    .rec-item-val {
+      font-size: 9.2pt;
+      font-weight: 700;
+      color: #0f172a;
+      word-break: break-word;
+    }
+
+    .rec-settings {
+      font-size: 9pt;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      margin-top: 18px;
+      margin-bottom: 9px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h2 .sec-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 9.5pt;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 10.8pt;
+      margin-top: 11px;
+      margin-bottom: 4px;
+      color: #1e293b;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 7px;
+      color: var(--text-main);
+    }
+
+    ul, ol {
+      margin-left: 18px;
+      margin-bottom: 8px;
+    }
+
+    li {
+      margin-bottom: 3.5px;
+    }
+
+    a {
+      color: var(--primary-dark);
+    }
+
+    code {
+      font-family: "Cascadia Code", "Consolas", "Courier New", monospace;
+      font-size: 8.6pt;
+      background: var(--code-bg);
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      white-space: nowrap;
+    }
+
+    .wrap-code {
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 7.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255, 255, 255, 0.16);
+      color: #dbeafe;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      color: #ffffff;
+      font-size: 19pt;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      color: #e2e8f0;
+      font-size: 9.8pt;
+      margin-bottom: 10px;
+      max-width: 96%;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .hero-pill {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 8.2pt;
+      color: #f1f5f9;
+    }
+
+    .hero-pill strong {
+      color: #93c5fd;
+    }
+
+    .hero-pill a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      border-radius: 8px;
+      padding: 10px 13px;
+      margin: 10px 0;
+      border-left: 4px solid;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      font-size: 9.5pt;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .callout.blue {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+    .callout.blue .callout-title { color: var(--primary-dark); }
+
+    .callout.amber {
+      background: var(--amber-soft);
+      border-color: var(--accent-amber);
+    }
+    .callout.amber .callout-title { color: #92400e; }
+
+    .callout.emerald {
+      background: var(--emerald-soft);
+      border-color: var(--accent-emerald);
+    }
+    .callout.emerald .callout-title { color: #065f46; }
+
+    .callout p:last-child, .callout ul:last-child, .callout ol:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Quick Start Steps */
+    .quickstart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 10px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .qs-card {
+      background: var(--slate-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 10px;
+    }
+
+    .qs-step {
+      display: inline-block;
+      font-size: 7.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 3px;
+    }
+
+    .qs-card h4 {
+      font-size: 9.5pt;
+      margin-bottom: 3px;
+    }
+
+    .qs-card p {
+      font-size: 8.6pt;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
+    /* Visual UI Diagram */
+    .ui-diagram {
+      border: 1.5px solid #334155;
+      border-radius: 9px;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 11px;
+      margin: 10px 0 12px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .ui-titlebar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.3pt;
+      font-weight: 700;
+      color: #94a3b8;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 6px;
+      margin-bottom: 9px;
+    }
+
+    .ui-zone-top {
+      background: #1e293b;
+      border: 1px dashed #60a5fa;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+
+    .ui-zone-label {
+      display: inline-block;
+      font-size: 7.4pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+
+    .lbl-blue { background: #1d4ed8; color: #ffffff; }
+    .lbl-teal { background: #0f766e; color: #ffffff; }
+    .lbl-purple { background: #6d28d9; color: #ffffff; }
+    .lbl-amber { background: #b45309; color: #ffffff; }
+    .lbl-slate { background: #475569; color: #ffffff; }
+
+    .ui-row-flex {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 8.2pt;
+    }
+
+    .ui-mock-btn {
+      background: #334155;
+      border: 1px solid #475569;
+      color: #f8fafc;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 8pt;
+      font-weight: 600;
+    }
+
+    .ui-mock-btn.active {
+      background: #2563eb;
+      border-color: #60a5fa;
+    }
+
+    .ui-columns {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1.15fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .ui-col {
+      background: #1e293b;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 8.1pt;
+    }
+
+    .ui-col.left { border: 1px dashed #2dd4bf; }
+    .ui-col.center { border: 1px dashed #a78bfa; }
+    .ui-col.right { border: 1px dashed #fbbf24; }
+
+    .ui-col ul {
+      margin-left: 14px;
+      margin-bottom: 0;
+      margin-top: 4px;
+    }
+
+    .ui-col li {
+      margin-bottom: 2px;
+      color: #cbd5e1;
+      font-size: 7.9pt;
+    }
+
+    .ui-zone-bottom {
+      background: #1e293b;
+      border: 1px dashed #94a3b8;
+      border-radius: 6px;
+      padding: 7px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.1pt;
+      gap: 8px;
+    }
+
+    .ui-start-btn {
+      background: #059669;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 5px;
+      font-size: 8.5pt;
+      white-space: nowrap;
+    }
+
+    /* Two-column Cards */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    .mode-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #ffffff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .mode-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      gap: 6px;
+    }
+
+    .mode-card-header h3 {
+      margin: 0;
+      font-size: 10.4pt;
+    }
+
+    .tag {
+      font-size: 7.3pt;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag-installed { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .tag-pro { background: #f3e8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+
+    .mode-card p {
+      font-size: 8.9pt;
+      margin-bottom: 5px;
+    }
+
+    .mode-card ul {
+      font-size: 8.6pt;
+      margin-bottom: 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 8.6pt;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 8.4pt;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* Recipe Cards */
+    .recipe {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-teal);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 9px;
+      background: #ffffff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .recipe-title {
+      font-size: 10.2pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recipe-sub {
+      font-size: 8pt;
+      font-weight: 600;
+      color: var(--accent-teal);
+      background: var(--teal-soft);
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid #99f6e4;
+      white-space: nowrap;
+    }
+
+    .recipe ol, .recipe ul {
+      margin-bottom: 0;
+      font-size: 8.9pt;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 8pt;
+      color: var(--text-light);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .page-break {
+      display: none;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 760px) {
+      .page-wrap {
+        margin: 0;
+        padding: 16px;
+        border-radius: 0;
+        border: none;
+      }
+      .quickstart-grid, .ui-columns, .mode-grid, .rec-controls, .rec-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Print / PDF Styles */
+    @media print {
+      body {
+        background: #ffffff;
+        font-size: 9.6pt;
+        line-height: 1.48;
+      }
+      .page-wrap {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-break {
+        display: block;
+        page-break-before: always;
+        break-before: page;
+      }
+      a {
+        color: #1e40af;
+        text-decoration: underline;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <!-- WEB ACTION BAR (hidden in PDF) -->
+    <div class="topbar no-print">
+      <div class="topbar-brand">
+        <span>UVR5 Interactive Guide</span>
+        <span class="topbar-badge">For v5.6</span>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn btn-emerald" href="Ultimate_Vocal_Remover_5_Guide.pdf" download="Ultimate_Vocal_Remover_5_Guide.pdf">
+          &#11015; Download PDF Guide
+        </a>
+        <a class="btn btn-primary" href="https://github.com/Anjok07/ultimatevocalremovergui/releases/tag/v5.6" target="_blank" rel="noopener">
+          Download Official UVR v5.6 &#8599;
+        </a>
+        <a class="btn btn-outline" href="https://github.com/0xadett/UVR5-Guide" target="_blank" rel="noopener">
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+
+    <!-- HERO HEADER -->
+    <div class="hero">
+      <div class="hero-badge">Open-Source Audio Production &amp; Stem Separation Handbook</div>
+      <h1>Ultimate Vocal Remover 5 (UVR5) — Complete Guide</h1>
+      <p>
+        A practical, plain-English guide to mastering UVR5's interface, AI separation engines, settings,
+        and DAW workflows (Ableton Live, FL Studio, Logic Pro) for Windows, macOS, and Linux.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-pill">
+          <strong>Official Software:</strong>
+          <a href="https://github.com/Anjok07/ultimatevocalremovergui/releases/tag/v5.6" target="_blank" rel="noopener">
+            Anjok07 / ultimatevocalremovergui (v5.6)
+          </a>
+        </div>
+        <div class="hero-pill"><strong>Engines Covered:</strong> MDX-Net, Demucs v4, VR Arch, Ensemble</div>
+        <div class="hero-pill"><strong>Hardware Modes:</strong> NVIDIA CUDA GPU &amp; CPU / Apple Silicon</div>
+      </div>
+    </div>
+
+    <!-- OFFICIAL ATTRIBUTION BANNER -->
+    <div class="callout blue">
+      <div class="callout-title">Official Software Download &amp; Attribution</div>
+      <p>
+        This guide documents <strong>Ultimate Vocal Remover GUI (UVR5)</strong>, created by <strong>Anjok07</strong> &amp; <strong>aufr33</strong>.
+        If you haven't installed the application yet, download the free, official installer directly from the
+        <a href="https://github.com/Anjok07/ultimatevocalremovergui/releases/tag/v5.6" target="_blank" rel="noopener">
+          Official UVR v5.6 GitHub Release Page
+        </a>
+        (<code>https://github.com/Anjok07/ultimatevocalremovergui/releases/tag/v5.6</code>).
+      </p>
+    </div>
+
+    <!-- INTERACTIVE SETUP RECOMMENDER (Web Only) -->
+    <div class="recommender no-print" id="setup-finder">
+      <div class="recommender-head">
+        <h2>Interactive "What Should I Use?" Setup Recommender</h2>
+        <span class="recommender-tag">Live Settings Tool</span>
+      </div>
+      <div class="rec-controls">
+        <div class="rec-field">
+          <label for="goal-select">1. What is your goal?</label>
+          <select id="goal-select">
+            <option value="vocals">Extract Clean Lead Vocals (Remix / Acapella)</option>
+            <option value="inst">Create an Instrumental / Karaoke Track</option>
+            <option value="stems4">Split Song into 4 Stems (Vocals, Drums, Bass, Other)</option>
+            <option value="stems6">Split Song into 6 Stems (+ Guitar &amp; Piano)</option>
+            <option value="dereverb">Remove Reverb &amp; Echo from Vocals</option>
+            <option value="harmony">Separate Lead Vocals from Backing Harmonies</option>
+            <option value="denoise">Clean Background Noise / Hiss / Hum</option>
+          </select>
+        </div>
+        <div class="rec-field">
+          <label for="hw-select">2. What hardware do you have?</label>
+          <select id="hw-select">
+            <option value="cpu">CPU / Integrated Graphics (Intel / AMD / Mac)</option>
+            <option value="gpu">Dedicated NVIDIA GPU (RTX / GTX with CUDA)</option>
+          </select>
+        </div>
+      </div>
+      <div class="rec-result" id="rec-output">
+        <div class="rec-grid">
+          <div class="rec-item">
+            <div class="rec-item-lbl">Choose Process Method</div>
+            <div class="rec-item-val" id="rec-method">MDX-Net</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-item-lbl">Default / Starter Model</div>
+            <div class="rec-item-val" id="rec-default">UVR-MDX-NET-Inst_HQ_3</div>
+          </div>
+          <div class="rec-item">
+            <div class="rec-item-lbl">Top Download Center Upgrade</div>
+            <div class="rec-item-val" id="rec-upgrade">Kim_Vocal_2 / MDX23C-8KFFT-InstVoc_HQ</div>
+          </div>
+        </div>
+        <div class="rec-settings" id="rec-settings"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: QUICK START -->
+    <h2><span class="sec-num">1</span> Your First Separation in 60 Seconds</h2>
+    <p>
+      UVR5 can look intimidating at first because it bundles multiple AI engines in one window. In practice,
+      you only ever configure <strong>three steps</strong> before clicking Start:
+    </p>
+
+    <div class="quickstart-grid">
+      <div class="qs-card">
+        <div class="qs-step">Step 1 · Files &amp; Format</div>
+        <h4>Choose Input &amp; Output</h4>
+        <p>Click <strong>Select Input</strong> to pick one or more songs. Click <strong>Select Output</strong> to pick a destination folder, then select <strong>WAV</strong> (best for DAWs).</p>
+      </div>
+      <div class="qs-card">
+        <div class="qs-step">Step 2 · Engine &amp; Model</div>
+        <h4>Pick Mode &amp; Stems</h4>
+        <p>Under <strong>Choose Process Method</strong>, pick <code>MDX-Net</code> (vocals/inst) or <code>Demucs</code> (multi-stem instruments), select a model, and check the stems you want.</p>
+      </div>
+      <div class="qs-card">
+        <div class="qs-step">Step 3 · Hardware &amp; Run</div>
+        <h4>Set GPU/CPU &amp; Start</h4>
+        <p>Check <strong>GPU Conversion</strong> only if you have an NVIDIA CUDA GPU (leave unchecked for CPU/Mac/Intel graphics), then click <strong>Start Processing</strong>.</p>
+      </div>
+    </div>
+
+    <div class="callout emerald">
+      <div class="callout-title">Pro Tip: Use "Sample Mode" Before Waiting on a Full Song!</div>
+      <p>
+        Testing different AI models on a full 4-minute track (especially on a CPU) can take several minutes per attempt.
+        Check <strong>Sample Mode</strong> (you can adjust its length between 5–30 seconds inside the Wrench Settings) to process just a short preview snippet in seconds. Once the snippet sounds clean, uncheck Sample Mode and run the full song.
+      </p>
+    </div>
+
+    <!-- SECTION 2: INTERFACE VISUAL MAP -->
+    <h2><span class="sec-num">2</span> Understanding the UVR5 Interface</h2>
+    <p>
+      Every button in the main UVR5 window belongs to one of five functional zones. Use this visual map to orient yourself:
+    </p>
+
+    <div class="ui-diagram">
+      <div class="ui-titlebar">
+        <span>ULTIMATE VOCAL REMOVER v5.6 — INTERFACE MAP</span>
+        <span>5 Functional Zones</span>
+      </div>
+
+      <!-- Top Zone -->
+      <div class="ui-zone-top">
+        <span class="ui-zone-label lbl-blue">Zone 1 · Top I/O &amp; Format</span>
+        <div class="ui-row-flex">
+          <span class="ui-mock-btn">Select Input (Single or Multi-File Batch)</span>
+          <span class="ui-mock-btn">Select Output Folder</span>
+          <span>Save As:</span>
+          <span class="ui-mock-btn active">WAV</span>
+          <span class="ui-mock-btn">FLAC</span>
+          <span class="ui-mock-btn">MP3</span>
+        </div>
+      </div>
+
+      <!-- Middle 3 Columns -->
+      <div class="ui-columns">
+        <div class="ui-col left">
+          <span class="ui-zone-label lbl-teal">Zone 2 · Left Column</span>
+          <div><strong>Choose Process Method</strong></div>
+          <ul>
+            <li><code>VR Architecture</code> — De-echo, De-reverb, De-noise, Karaoke</li>
+            <li><code>MDX-Net</code> — Cleanest lead vocals &amp; instrumentals</li>
+            <li><code>Demucs</code> — Multi-stem (Drums, Bass, Vocals, Other/Guitar/Piano)</li>
+            <li><code>Ensemble Mode</code> — Blend multiple models</li>
+            <li><code>Audio Tools</code> — Pitch, Time Stretch, Matchering</li>
+          </ul>
+        </div>
+
+        <div class="ui-col center">
+          <span class="ui-zone-label lbl-purple">Zone 3 · Center Column</span>
+          <div><strong>Model &amp; Stem Output</strong></div>
+          <ul>
+            <li><strong>Choose Model:</strong> Dropdown lists models installed for the selected method</li>
+            <li><strong>2-Stem Checkboxes:</strong> <code>Vocals Only</code> or <code>Instrumental Only</code> (leave both unchecked to save both)</li>
+            <li><strong>Demucs Stem Choice:</strong> Pick a single stem + inverted mix, or check <code>All Stems</code></li>
+          </ul>
+        </div>
+
+        <div class="ui-col right">
+          <span class="ui-zone-label lbl-amber">Zone 4 · Right Column</span>
+          <div><strong>Quality &amp; Hardware Tuning</strong></div>
+          <ul>
+            <li><code>GPU Conversion</code> — ON for NVIDIA CUDA; OFF for CPU/Mac/Intel</li>
+            <li><code>Window Size</code> / <code>Aggression</code> (VR Arch)</li>
+            <li><code>Segment Size</code> / <code>Overlap</code> (MDX-Net)</li>
+            <li><code>Shifts</code> / <code>Segment</code> (Demucs)</li>
+            <li><code>Sample Mode</code> — Fast 5–15s preview clip</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Zone -->
+      <div class="ui-zone-bottom">
+        <div>
+          <span class="ui-zone-label lbl-slate">Zone 5 · Bottom Bar</span>
+          <span style="margin-left:6px; color:#cbd5e1;"><strong>Wrench Icon</strong> (Settings &amp; Download Center) &nbsp;|&nbsp; Live Progress &amp; Log Window</span>
+        </div>
+        <div class="ui-start-btn">Start Processing</div>
+      </div>
+    </div>
+
+    <h3>Right-Column Settings Explained (GPU vs. CPU Guidance)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:19%;">Setting Name</th>
+          <th style="width:15%;">Applies To</th>
+          <th style="width:26%;">Recommended Value</th>
+          <th style="width:40%;">What It Actually Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>GPU Conversion</code></td>
+          <td>All Modes</td>
+          <td><strong>ON</strong> (NVIDIA CUDA) / <strong>OFF</strong> (CPU &amp; Integrated GPU)</td>
+          <td>
+            Uses an NVIDIA CUDA graphics card for 5–20&times; faster processing. If you have Intel/AMD integrated graphics or run on CPU, keep this <strong>unchecked</strong> to prevent crashes.
+          </td>
+        </tr>
+        <tr>
+          <td><code>WAV</code> / <code>FLAC</code> / <code>MP3</code></td>
+          <td>Top Bar</td>
+          <td><strong>WAV</strong> (for DAWs)</td>
+          <td>
+            Always export uncompressed <strong>WAV</strong> when importing stems into Ableton Live, FL Studio, or Logic Pro to avoid compression artifacts.
+          </td>
+        </tr>
+        <tr>
+          <td><code>Window Size</code></td>
+          <td>VR Arch</td>
+          <td><strong>512</strong> (balanced) or <strong>320</strong> (fast)</td>
+          <td>
+            Controls analysis resolution. <code>1024</code> can sound slightly smoother on reverb removal but uses more memory and runs slower; <code>512</code> is the sweet spot.
+          </td>
+        </tr>
+        <tr>
+          <td><code>Aggression Setting</code></td>
+          <td>VR Arch</td>
+          <td><strong>5</strong> (default)</td>
+          <td>
+            Range <code>0–50</code>. Raise to <code>7–10</code> if vocal bleed still leaks into the instrumental; lower to <code>2–4</code> if extracted vocals sound thin or phasey.
+          </td>
+        </tr>
+        <tr>
+          <td><code>Segment Size</code></td>
+          <td>MDX-Net / Demucs</td>
+          <td><strong>256</strong> or <strong>Default</strong> (CPU / 4GB VRAM) · <strong>512</strong> (8GB+ VRAM)</td>
+          <td>
+            Chunks audio for neural-net processing. Smaller chunks (<code>128</code>–<code>256</code>) save RAM/VRAM and prevent out-of-memory crashes while keeping quality intact.
+          </td>
+        </tr>
+        <tr>
+          <td><code>Overlap</code></td>
+          <td>MDX-Net / Demucs</td>
+          <td><strong>0.25</strong> (default)</td>
+          <td>
+            Blends adjacent audio chunks smoothly. Higher values (e.g., <code>0.5</code> or <code>0.75</code>) can smooth tiny seams at the cost of significantly slower processing.
+          </td>
+        </tr>
+        <tr>
+          <td><code>Shifts</code></td>
+          <td>Demucs</td>
+          <td><strong>0–1</strong> (CPU) · <strong>2</strong> (GPU)</td>
+          <td>
+            Runs the AI multiple times with tiny time offsets and averages them. <code>Shifts = 2</code> doubles processing time; keep at <code>0</code> or <code>1</code> on CPU.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- SECTION 3: THE 4 CORE SEPARATION MODES -->
+    <div class="page-break"></div>
+    <h2><span class="sec-num">3</span> The 4 Core Separation Modes — What Each One Does Best</h2>
+    <p>
+      Different AI architectures specialize in different jobs. UVR v5.6 ships with <strong>starter models pre-installed</strong>,
+      and unlocks dozens more specialized models for free inside the built-in <strong>Download Center</strong>.
+    </p>
+
+    <div class="mode-grid">
+      <!-- MDX-Net -->
+      <div class="mode-card">
+        <div class="mode-card-header">
+          <h3>1. MDX-Net</h3>
+          <span class="tag tag-installed">Default + Upgrades</span>
+        </div>
+        <p>
+          <strong>Best for:</strong> Surgical 2-stem separation (<strong>Vocals</strong> vs. <strong>Instrumental</strong>) and ultra-clean backing tracks.
+        </p>
+        <ul>
+          <li><strong>Included in v5.6:</strong> <code>UVR-MDX-NET-Inst_HQ_3</code> — one of the best all-around models for clean instrumentals and crisp vocal extracts.</li>
+          <li><strong>Top Download Center Picks:</strong>
+            <ul>
+              <li><code>Kim_Vocal_2</code> — renowned for clean, natural lead vocals.</li>
+              <li><code>MDX23C-8KFFT-InstVoc_HQ</code> — studio-grade full-bandwidth vocal/instrumental separation.</li>
+              <li><code>UVR-MDX-NET-Karaoke-2</code> — strips lead vocal while keeping backing harmonies inside the instrumental.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Demucs -->
+      <div class="mode-card">
+        <div class="mode-card-header">
+          <h3>2. Demucs (v4)</h3>
+          <span class="tag tag-installed">Multi-Stem Engine</span>
+        </div>
+        <p>
+          <strong>Best for:</strong> Splitting a full mix into <strong>individual instrument stems</strong> (Drums, Bass, Guitar, Piano, Vocals, Other).
+        </p>
+        <ul>
+          <li><strong>Included in v5.6:</strong> <code>v4 | htdemucs</code> — splits any song into <strong>4 stems</strong>: <code>Vocals</code>, <code>Drums</code>, <code>Bass</code>, and <code>Other</code> (synths/guitars/keys).</li>
+          <li><strong>Stem Options:</strong> Check <strong>All Stems</strong> to export all 4 tracks at once, or pick one target stem (e.g., <code>Drums</code>) to isolate it plus everything else.</li>
+          <li><strong>Top Download Center Picks:</strong>
+            <ul>
+              <li><code>v4 | htdemucs_6s</code> — unlocks <strong>6 stems</strong> (adds dedicated <code>Guitar</code> and <code>Piano</code> tracks!).</li>
+              <li><code>v4 | htdemucs_ft</code> — fine-tuned 4-stem version (higher quality, ~4&times; slower).</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- VR Architecture -->
+      <div class="mode-card">
+        <div class="mode-card-header">
+          <h3>3. VR Architecture</h3>
+          <span class="tag tag-installed">Cleanup &amp; FX Removal</span>
+        </div>
+        <p>
+          <strong>Best for:</strong> Audio restoration &amp; cleanup—removing <strong>reverb</strong>, <strong>echo/delay</strong>, <strong>background noise</strong>, and separating harmonies.
+        </p>
+        <ul>
+          <li><strong>Included in v5.6:</strong>
+            <ul>
+              <li><code>1_HP-UVR</code> — general vocal/instrumental high-precision model.</li>
+              <li><code>UVR-DeNoise-Lite</code> — cleans hiss, hum, and static from recordings or extracted stems.</li>
+            </ul>
+          </li>
+          <li><strong>Essential Download Center Picks:</strong>
+            <ul>
+              <li><code>UVR-De-Echo-Normal</code> / <code>Aggressive</code> &amp; <code>UVR-DeEcho-DeReverb</code> — strips baked-in room reverb and delay tails from vocals so you can apply your own DAW reverb!</li>
+              <li><code>5_HP-Karaoke-UVR</code> / <code>6_HP-Karaoke-UVR</code> — splits lead vocals from backing harmonies.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Ensemble Mode -->
+      <div class="mode-card">
+        <div class="mode-card-header">
+          <h3>4. Ensemble Mode</h3>
+          <span class="tag tag-pro">Advanced Blending</span>
+        </div>
+        <p>
+          <strong>Best for:</strong> Combining 2 or more models (for example, <code>MDX-Net</code> + <code>Demucs</code>) so each model hides the other's artifacts.
+        </p>
+        <ul>
+          <li><strong>How It Works:</strong> UVR5 runs each selected model sequentially and mathematically blends their frequency spectra.</li>
+          <li><strong>Key Algorithms:</strong>
+            <ul>
+              <li><code>Max Spec / Min Spec</code> — selects the stronger or cleaner spectral estimate per stem (great for removing faint instrumental bleed from vocals).</li>
+              <li><code>Average</code> — balances two vocal models smoothly.</li>
+            </ul>
+          </li>
+          <li><strong>Save Time:</strong> Use the Ensemble preset controls to save your favorite 2-model combination for one-click reuse.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION 4: DOWNLOAD CENTER -->
+    <h2><span class="sec-num">4</span> How to Download New Models (The Download Center)</h2>
+    <p>
+      UVR v5.6 installs with 4 core starter models, while specialized models (such as 6-stem Demucs, De-Reverb, and <code>Kim_Vocal_2</code>)
+      can be downloaded in seconds right inside the app:
+    </p>
+    <ol>
+      <li>Click the <strong>Wrench Icon</strong> in the bottom-left area of UVR5 to open the <strong>Settings</strong> window.</li>
+      <li>Switch to the <strong>Download Center</strong> tab at the top of the Settings window.</li>
+      <li>Select a category radio button: <code>VR Arch</code>, <code>MDX-Net</code>, or <code>Demucs</code>.</li>
+      <li>Open the dropdown menu underneath, choose the model you want (for example, <code>Demucs v4: htdemucs_6s</code> or <code>VR Arch: UVR-DeEcho-DeReverb</code>), and click the <strong>Download Arrow</strong> icon next to it.</li>
+      <li>Wait for the download bar to finish, close Settings, and the new model will appear immediately in your main window's <strong>Choose Model</strong> dropdown.</li>
+    </ol>
+
+    <!-- SECTION 5: DAW PRODUCTION RECIPES -->
+    <h2><span class="sec-num">5</span> Step-by-Step Recipes for Music Producers &amp; DAWs</h2>
+
+    <div class="recipe">
+      <div class="recipe-title">
+        <span>Recipe 1: Studio-Clean "Dry" Lead Vocals (For Remixes &amp; Sampling)</span>
+        <span class="recipe-sub">2-Pass Workflow</span>
+      </div>
+      <ol>
+        <li><strong>Pass 1 (Isolate the Vocals):</strong> Set Process Method to <code>MDX-Net</code> &rarr; Model <code>UVR-MDX-NET-Inst_HQ_3</code> (or downloaded <code>Kim_Vocal_2</code>) &rarr; check <strong>Vocals Only</strong> &rarr; Format <strong>WAV</strong> &rarr; run <strong>Start Processing</strong>.</li>
+        <li><strong>Pass 2 (Optional — Strip Reverb &amp; Backing Harmonies):</strong> Drag your newly created vocal <code>.wav</code> back into <strong>Select Input</strong>. Switch Process Method to <code>VR Architecture</code> &rarr; run <code>UVR-DeEcho-DeReverb</code> to dry out the vocal, or <code>5_HP-Karaoke-UVR</code> to isolate the lead line from harmonies.</li>
+        <li><strong>Into Your DAW:</strong> Drag the dry <code>.wav</code> onto an Audio Track (e.g., in Ableton Live, enable <strong>Warp</strong> with Complex Pro mode) and add your own EQ, compression, and reverb cleanly.</li>
+      </ol>
+    </div>
+
+    <div class="recipe">
+      <div class="recipe-title">
+        <span>Recipe 2: Clean Instrumental / Karaoke Backing Track</span>
+        <span class="recipe-sub">Starter Model Ready</span>
+      </div>
+      <ol>
+        <li>Select your song in <strong>Select Input</strong> and choose an output folder.</li>
+        <li>Set Process Method to <code>MDX-Net</code> &rarr; select <code>UVR-MDX-NET-Inst_HQ_3</code> (or <code>UVR-MDX-NET-Karaoke-2</code> if you want to keep backing harmonies).</li>
+        <li>Check <strong>Instrumental Only</strong> (or leave both checkboxes unchecked if you want both Vocals and Instrumental saved).</li>
+        <li>Set format to <strong>WAV</strong> (or <strong>MP3</strong> for lightweight practice tracks) and click <strong>Start Processing</strong>.</li>
+      </ol>
+    </div>
+
+    <div class="recipe">
+      <div class="recipe-title">
+        <span>Recipe 3: Full Multi-Track Stems (Drums, Bass, Vocals, Instruments)</span>
+        <span class="recipe-sub">4 or 6 Stems</span>
+      </div>
+      <ol>
+        <li>Set Process Method to <code>Demucs</code> &rarr; choose <code>v4 | htdemucs</code> (4 stems) or download <code>v4 | htdemucs_6s</code> (6 stems with Guitar &amp; Piano).</li>
+        <li>Check <strong>All Stems</strong> in the center column and set Format to <strong>WAV</strong>.</li>
+        <li>Set <code>Shifts</code> to <code>0–1</code> on CPU (or <code>2</code> on NVIDIA GPU) and click <strong>Start Processing</strong>.</li>
+        <li>Drag all 4 (or 6) exported <code>.wav</code> files simultaneously into your DAW (in Ableton Live, hold <strong>Ctrl</strong> while dropping into Arrangement View so every stem lands on its own time-aligned track!).</li>
+      </ol>
+    </div>
+
+    <div class="recipe">
+      <div class="recipe-title">
+        <span>Recipe 4: Using Built-In "Audio Tools" (Pitch, Tempo &amp; Mastering Match)</span>
+        <span class="recipe-sub">Bonus Utilities</span>
+      </div>
+      <ul>
+        <li><strong>Time Stretch:</strong> Speed up or slow down any stem without changing pitch using UVR5's built-in Rubberband engine.</li>
+        <li><strong>Change Pitch:</strong> Shift an instrumental or acapella up/down by semitones before importing into your project.</li>
+        <li><strong>Matchering:</strong> Automatically match the loudness and tonal EQ balance of your track to a commercial reference track.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 6: CHEAT SHEET -->
+    <h2><span class="sec-num">6</span> Quick Reference Cheat-Sheet</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:24%;">What You Want to Do</th>
+          <th style="width:16%;">Process Method</th>
+          <th style="width:30%;">Recommended Model</th>
+          <th style="width:30%;">Key Settings &amp; Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Extract clean vocals + instrumental</td>
+          <td><code>MDX-Net</code></td>
+          <td><code>UVR-MDX-NET-Inst_HQ_3</code></td>
+          <td><strong>Pre-installed!</strong> Segment: <code>256</code>, WAV output</td>
+        </tr>
+        <tr>
+          <td>Top-tier natural lead vocals</td>
+          <td><code>MDX-Net</code></td>
+          <td><code>Kim_Vocal_2</code> or <code class="wrap-code">MDX23C-8KFFT-InstVoc_HQ</code></td>
+          <td>Download via Wrench &rarr; Download Center</td>
+        </tr>
+        <tr>
+          <td>Split song into Drums, Bass, Vocals, Other</td>
+          <td><code>Demucs</code></td>
+          <td><code>v4 | htdemucs</code></td>
+          <td><strong>Pre-installed!</strong> Check <code>All Stems</code>, Shifts: <code>0–2</code></td>
+        </tr>
+        <tr>
+          <td>Split song into 6 stems (+ Guitar &amp; Piano)</td>
+          <td><code>Demucs</code></td>
+          <td><code>v4 | htdemucs_6s</code></td>
+          <td>Download via Wrench &rarr; Download Center (Demucs)</td>
+        </tr>
+        <tr>
+          <td>Remove reverb &amp; echo from vocals</td>
+          <td><code>VR Arch</code></td>
+          <td><code>UVR-DeEcho-DeReverb</code></td>
+          <td>Download via VR Arch; Window: <code>512</code>, Aggression: <code>5</code></td>
+        </tr>
+        <tr>
+          <td>Separate lead vocal from harmonies</td>
+          <td><code>VR Arch</code></td>
+          <td><code>5_HP-Karaoke-UVR</code></td>
+          <td>Download via VR Arch; run on extracted vocal WAV</td>
+        </tr>
+        <tr>
+          <td>Remove background hiss / hum</td>
+          <td><code>VR Arch</code></td>
+          <td><code>UVR-DeNoise-Lite</code></td>
+          <td><strong>Pre-installed!</strong> Window: <code>512</code>, Aggression: <code>5</code></td>
+        </tr>
+        <tr>
+          <td>Maximum quality / minimal bleed</td>
+          <td><code>Ensemble Mode</code></td>
+          <td><code>MDX-Net</code> + <code>Demucs v4</code></td>
+          <td>Use <code>Max Spec</code> / <code>Min Spec</code>; save as preset</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout amber">
+      <div class="callout-title">Speed &amp; Troubleshooting Checklist</div>
+      <ul>
+        <li><strong>Processing seems frozen?</strong> Without an NVIDIA GPU, CPU processing for a full 3–4 minute track in Demucs or Ensemble mode can take 3–10+ minutes. Watch the log window at the bottom or test with <strong>Sample Mode</strong> first.</li>
+        <li><strong>Out-of-memory / CUDA error?</strong> Lower <code>Segment Size</code> in MDX-Net/Demucs (e.g., from 512 down to <code>256</code> or <code>128</code>), close heavy DAW projects while UVR5 runs, or uncheck <code>GPU Conversion</code> if your GPU lacks VRAM.</li>
+        <li><strong>Vocals sound metallic or "underwater"?</strong> Try a gentler model (<code>Kim_Vocal_2</code>), lower VR <code>Aggression</code> to <code>2–4</code>, or compare <code>Demucs</code> vs. <code>MDX-Net</code> in Sample Mode.</li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      <span>Ultimate Vocal Remover 5 (UVR5) Community Guide &middot; Software by <a href="https://github.com/Anjok07/ultimatevocalremovergui/releases/tag/v5.6" target="_blank" rel="noopener">Anjok07 (v5.6)</a></span>
+      <span>Hosted at <a href="https://github.com/0xadett/UVR5-Guide" target="_blank" rel="noopener">github.com/0xadett/UVR5-Guide</a></span>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      const recommendations = {
+        vocals: {
+          method: "MDX-Net",
+          defModel: "UVR-MDX-NET-Inst_HQ_3",
+          upgrade: "Kim_Vocal_2 or MDX23C-8KFFT-InstVoc_HQ",
+          cpuTip: "Check 'Vocals Only', format WAV, Segment Size 256, Overlap 0.25, GPU Conversion UNCHECKED. Use Sample Mode first to verify clarity.",
+          gpuTip: "Check 'Vocals Only', format WAV, Segment Size 512, Overlap 0.25, GPU Conversion CHECKED. For dry remixes, run a second VR Arch pass with UVR-DeEcho-DeReverb."
+        },
+        inst: {
+          method: "MDX-Net",
+          defModel: "UVR-MDX-NET-Inst_HQ_3",
+          upgrade: "UVR-MDX-NET-Karaoke-2 (keeps backing vocals)",
+          cpuTip: "Check 'Instrumental Only' (or leave both unchecked for both stems), WAV format, Segment Size 256, GPU Conversion UNCHECKED.",
+          gpuTip: "Check 'Instrumental Only', WAV format, Segment Size 512, GPU Conversion CHECKED. Try UVR-MDX-NET-Karaoke-2 if you want backing harmonies left in."
+        },
+        stems4: {
+          method: "Demucs (v4)",
+          defModel: "v4 | htdemucs",
+          upgrade: "v4 | htdemucs_ft (Fine-Tuned, higher precision)",
+          cpuTip: "Check 'All Stems', WAV format, Shifts = 0 or 1, Segment = Default, GPU Conversion UNCHECKED (htdemucs_ft is ~4x slower on CPU).",
+          gpuTip: "Check 'All Stems', WAV format, Shifts = 2, Segment = Default, GPU Conversion CHECKED. Drop all 4 WAVs into your DAW on separate tracks."
+        },
+        stems6: {
+          method: "Demucs (v4)",
+          defModel: "v4 | htdemucs (4-stem fallback)",
+          upgrade: "v4 | htdemucs_6s (Download Center -> Demucs)",
+          cpuTip: "Download 'v4 | htdemucs_6s' via Wrench -> Download Center. Check 'All Stems', WAV format, Shifts = 0 or 1, GPU Conversion UNCHECKED.",
+          gpuTip: "Download 'v4 | htdemucs_6s' via Wrench -> Download Center. Check 'All Stems', WAV format, Shifts = 2, GPU Conversion CHECKED to isolate Guitar & Piano."
+        },
+        dereverb: {
+          method: "VR Architecture",
+          defModel: "1_HP-UVR (general split only)",
+          upgrade: "UVR-DeEcho-DeReverb (Download Center -> VR Arch)",
+          cpuTip: "Download 'UVR-DeEcho-DeReverb' in VR Arch. Run on an already-isolated vocal WAV. Window Size 512, Aggression 5, GPU Conversion UNCHECKED.",
+          gpuTip: "Download 'UVR-DeEcho-DeReverb' in VR Arch. Run on an already-isolated vocal WAV. Window Size 512 (or 1024), Aggression 5, GPU Conversion CHECKED."
+        },
+        harmony: {
+          method: "VR Architecture",
+          defModel: "1_HP-UVR (general split only)",
+          upgrade: "5_HP-Karaoke-UVR or 6_HP-Karaoke-UVR",
+          cpuTip: "Download '5_HP-Karaoke-UVR' via VR Arch. Input your extracted vocal WAV, Window Size 512, Aggression 5, GPU Conversion UNCHECKED.",
+          gpuTip: "Download '5_HP-Karaoke-UVR' via VR Arch. Input your extracted vocal WAV, Window Size 512, Aggression 5, GPU Conversion CHECKED."
+        },
+        denoise: {
+          method: "VR Architecture",
+          defModel: "UVR-DeNoise-Lite",
+          upgrade: "UVR-DeNoise (Full version via Download Center)",
+          cpuTip: "Use pre-installed 'UVR-DeNoise-Lite'. Window Size 512, Aggression 3-5, WAV output, GPU Conversion UNCHECKED.",
+          gpuTip: "Use 'UVR-DeNoise-Lite' or download 'UVR-DeNoise'. Window Size 512, Aggression 3-5, WAV output, GPU Conversion CHECKED."
+        }
+      };
+
+      const goalEl = document.getElementById("goal-select");
+      const hwEl = document.getElementById("hw-select");
+      const methodEl = document.getElementById("rec-method");
+      const defEl = document.getElementById("rec-default");
+      const upgEl = document.getElementById("rec-upgrade");
+      const setEl = document.getElementById("rec-settings");
+
+      function updateRec() {
+        const rec = recommendations[goalEl.value];
+        const isGpu = hwEl.value === "gpu";
+        methodEl.textContent = rec.method;
+        defEl.textContent = rec.defModel;
+        upgEl.textContent = rec.upgrade;
+        setEl.innerHTML = "<strong>Recommended Settings:</strong> " + (isGpu ? rec.gpuTip : rec.cpuTip);
+      }
+
+      goalEl.addEventListener("change", updateRec);
+      hwEl.addEventListener("change", updateRec);
+      updateRec();
+    })();
+  </script>
+</body>
+</html>
